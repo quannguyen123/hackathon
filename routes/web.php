@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\IssueController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,23 +19,13 @@ use App\Http\Controllers\ProfileController;
 
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [App\Http\Controllers\ProfileController::class, 'dashboard'])->name('users.dashboard');
+    Route::get('dashboard', [ProfileController::class, 'dashboard'])->name('users.dashboard');
+});
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('/issues', IssueController::class)->except(['show']) ;
     Route::resource('/users', UserController::class)->except(['show']);
 });
 
-Route::prefix('admin')->group(function () {
-    Route::prefix('basic')->group(function() {
-        Route::get('list', [App\Http\Controllers\Admin\BasicController::class, 'list'])->name('basic-list');
-
-        Route::get('add', [App\Http\Controllers\Admin\BasicController::class, 'getAdd'])->name('basic-add');
-        Route::post('add', [App\Http\Controllers\Admin\BasicController::class, 'postAdd'])->name('post-basic-add');
-
-        Route::get('edit/{postMeta}', [App\Http\Controllers\Admin\BasicController::class, 'getEdit'])->name('basic-edit');
-        Route::post('edit/{postMeta}', [App\Http\Controllers\Admin\BasicController::class, 'postEdit'])->name('post-basic-edit');
-
-        Route::get('delete/{postMeta}', [App\Http\Controllers\Admin\BasicController::class, 'delete'])->name('basic-delete');
-    });
-});
 
 Route::prefix('project')->group(function() {
     Route::get('', [App\Http\Controllers\ProjectController::class, 'index'])->name('project-index');
