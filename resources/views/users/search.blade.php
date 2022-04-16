@@ -7,14 +7,12 @@
                     <span>{{__('Filter')}}</span>
                 </button>
             </div>
-            @can('users.store')
-                <div class="card-tools">
-                    <a href="{{ route('users.create') }}" class="btn btn-success btn-sm">
-                        <i class="fa fa-plus"></i>
-                        {{ __('Create') }}
-                    </a>
-                </div>
-            @endcan
+            <div class="card-tools">
+                <a href="{{ route('users.create') }}" class="btn btn-success btn-sm">
+                    <i class="fa fa-plus"></i>
+                    {{ __('Create') }}
+                </a>
+            </div>
         </div>
         <!-- /.card-header -->
         <!-- form start -->

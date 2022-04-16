@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Auth;
 
 class LoginController extends Controller
 {
@@ -34,7 +33,7 @@ class LoginController extends Controller
     }
     
     public function redirectTo() {
-        $user = Auth::user();
+        $user = \Auth::user();
         if ($user->role_id == User::PROJECT_MANAGER) {
             //return redirect()->route('projects.index');
         }
