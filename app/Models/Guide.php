@@ -10,7 +10,7 @@ class Project extends Model
 {
     use HasFactory, SoftDeletes;
     
-    protected $table = 'projects';
+    protected $table = 'issues';
 
     /**
      * The attributes that are mass assignable.
@@ -20,13 +20,9 @@ class Project extends Model
     protected $fillable = [
         'name',
         'description',
-        'manager',
-        'start_date',
-        'end_date',
+        'user_id',
+        'filename',
+        'project_id',
+        'private'
     ];
-    
-    public function user()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'manager');
-    }
 }
