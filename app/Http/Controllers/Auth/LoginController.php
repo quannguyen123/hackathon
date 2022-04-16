@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -38,7 +39,7 @@ class LoginController extends Controller
             //return redirect()->route('projects.index');
         }
 
-        return redirect()->route('users.dashboard');
+        return route('users.dashboard');
     }
 
     protected function loggedOut(Request $request) {
