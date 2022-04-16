@@ -1,7 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +20,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('dashboard', [App\Http\Controllers\ProfileController::class, 'dashboard'])->name('users.dashboard');
+});
 
 Route::prefix('admin')->group(function () {
     Route::prefix('basic')->group(function() {

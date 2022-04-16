@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -23,13 +23,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    //protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -40,12 +33,16 @@ class LoginController extends Controller
     }
     
     public function redirectTo() {
-        //$user = Auth::user();
-       
-        return '/admin/basic/list';
+        $user = Auth::user();
+        if ($user->role_id == User::PROJECT_MANAGER) {
+            //return redirect()->route('projects.index');
+        }
+
+        return redirect()->route('users.dashboard');
     }
 
     protected function loggedOut(Request $request) {
+        
         return redirect('/login');
     }
 }
