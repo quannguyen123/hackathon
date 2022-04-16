@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use EloquentFilter\Filterable;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable
     const DEVELOPER = 3;
     const TESTER = 4;
 
-    use HasApiTokens, HasFactory, Notifiable, SearchableTrait;
+    use HasApiTokens, HasFactory, Notifiable, SearchableTrait, Filterable;
 
     protected $fillable = [
         'name',

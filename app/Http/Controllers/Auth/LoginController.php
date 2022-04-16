@@ -38,7 +38,7 @@ class LoginController extends Controller
             //return redirect()->route('projects.index');
         }
 
-        return redirect()->route('users.dashboard');
+        return route('users.dashboard');
     }
 
     protected function loggedOut(Request $request) {
