@@ -20,13 +20,19 @@ class Project extends Model
     protected $fillable = [
         'name',
         'description',
-        'manager',
+        'manager_id',
         'start_date',
         'end_date',
     ];
     
+    public function manager()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'manager_id', 'id');
+    }
+    
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'manager');
+        return $this->belongsToMany(User::class, 'project_member');
     }
+    
 }
