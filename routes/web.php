@@ -35,3 +35,16 @@ Route::prefix('admin')->group(function () {
         Route::get('delete/{postMeta}', [App\Http\Controllers\Admin\BasicController::class, 'delete'])->name('basic-delete');
     });
 });
+
+Route::prefix('project')->group(function() {
+    Route::get('', [App\Http\Controllers\ProjectController::class, 'index'])->name('project-index');
+    // Route::get('detail/{project}', [App\Http\Controllers\ProjectController::class, 'detail'])->name('project-detail');
+
+    Route::get('create', [App\Http\Controllers\ProjectController::class, 'create'])->name('project-add');
+    Route::post('store', [App\Http\Controllers\ProjectController::class, 'store'])->name('project-store');
+
+    Route::get('edit/{project}', [App\Http\Controllers\ProjectController::class, 'edit'])->name('project-edit');
+    Route::post('update/{project}', [App\Http\Controllers\ProjectController::class, 'update'])->name('project-update');
+
+    Route::get('destroy/{project}', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('project-destroy');
+});
