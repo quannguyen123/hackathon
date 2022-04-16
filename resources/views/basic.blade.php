@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('master')
 
 @section('content')
 <body class="hold-transition sidebar-mini">

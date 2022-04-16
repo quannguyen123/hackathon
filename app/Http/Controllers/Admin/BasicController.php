@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class BasicController extends Controller
 {
     public function list() {
-        return view('admin.basic');
+        return view('basic');
     }
 
     public function getAdd() {
