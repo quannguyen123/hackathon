@@ -26,8 +26,12 @@
   <link rel="stylesheet" href="{{asset('adminlte/plugins/bs-stepper/css/bs-stepper.min.css')}}">
   <!-- dropzonejs -->
   <link rel="stylesheet" href="{{asset('adminlte/plugins/dropzone/min/dropzone.min.css')}}">
+  <!-- -->
+  <link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
+
+   @stack('styles')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -257,6 +261,7 @@
 <script src="{{asset('adminlte/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <!-- Select2 -->
 <script src="{{asset('adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- Bootstrap4 Duallistbox -->
@@ -414,4 +419,6 @@
   }
   // DropzoneJS Demo Code End
 </script>
+@include('partials.toast')
+@stack('scripts')
 </html>
