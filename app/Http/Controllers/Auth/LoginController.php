@@ -33,7 +33,7 @@ class LoginController extends Controller
     }
     
     public function redirectTo() {
-        $user = Auth::user();
+        $user = \Auth::user();
         if ($user->role_id == User::PROJECT_MANAGER) {
             //return redirect()->route('projects.index');
         }
