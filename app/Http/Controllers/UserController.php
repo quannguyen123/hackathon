@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class UserController extends Controller
 {
@@ -76,11 +77,16 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User          $user
+     *
+     * @return void
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(User $user): void
     {
-        //
+        if (!$user->delete()) {
+            throw new AccessDeniedHttpException;
+        }
     }
 }

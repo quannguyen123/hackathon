@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Advanced form elements</title>
-
+  <title>@yield('page-title') - {{ config('app.name') }}</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -30,8 +30,11 @@
   <link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
-
-   @stack('styles')
+  @stack('styles')
+  <script>
+    var csrf_token = '{{ csrf_token() }}';
+    var base_url = '{{config("app.url")}}';
+</script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -287,6 +290,11 @@
 <!-- Page specific script -->
 <script>
   $(function () {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+    });
     //Initialize Select2 Elements
     $('.select2').select2()
 
