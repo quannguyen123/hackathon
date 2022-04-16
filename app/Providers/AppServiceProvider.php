@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Arr;
+use Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        Schema::defaultStringLength(255);
+        Paginator::useBootstrap();
+        $this->app->resolving(
+            LengthAwarePaginator::class, function ($paginator) {
+                return $paginator->appends(Arr::except(Request::all(), $paginator->getPageName()));
+            }
+        );
     }
 }

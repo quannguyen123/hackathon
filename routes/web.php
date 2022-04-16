@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +22,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('dashboard', [App\Http\Controllers\ProfileController::class, 'dashboard'])->name('users.dashboard');
+});
+Route::resource('/users', UserController::class)->except(['show']);
 
 Route::prefix('admin')->group(function () {
     Route::prefix('basic')->group(function() {

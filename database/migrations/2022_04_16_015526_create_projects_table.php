@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->integer('manager')->unsigned();
+            $table->integer('manager_id')->unsigned();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date');
             $table->boolean('shared')->default(true);
