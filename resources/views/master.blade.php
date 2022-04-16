@@ -114,21 +114,21 @@
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ route('project-index') }}" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                       Project
                       <i class="right fas fa-angle-left"></i>
                     </p>
                   </a>
-                  <ul class="nav nav-treeview">
+                  <!-- <ul class="nav nav-treeview">
                     <li class="nav-item">
                       <a href="../../index.html" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>List project</p>
                       </a>
                     </li>
-                  </ul>
+                  </ul> -->
                 </li>
 
             </ul>
@@ -185,6 +185,9 @@
 <script src="{{asset('adminlte/plugins/dropzone/min/dropzone.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
+
+<!-- custom js -->
+<script src="{{asset('js/custom.js')}}"></script>
 
 <!-- Page specific script -->
 <script>

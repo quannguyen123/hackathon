@@ -16,7 +16,7 @@ class ProjectSeeder extends Seeder
     {
         Project::create([
             'name'              => 'BikeBros',
-            'manager'           => 3,
+            'manager_id'           => 3,
             'shared'          => 0,
             'start_date'      => '2022-02-01 00:00:00',
             'end_date'        => '2022-12-01 00:00:00',
