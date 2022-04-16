@@ -16,16 +16,11 @@ use App\Http\Controllers\ProfileController;
 */
 // use App\Http\Controllers\Admin\BasicController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('dashboard', [App\Http\Controllers\ProfileController::class, 'dashboard'])->name('users.dashboard');
+    Route::get('/', [App\Http\Controllers\ProfileController::class, 'dashboard'])->name('users.dashboard');
+    Route::resource('/users', UserController::class)->except(['show']);
 });
-Route::resource('/users', UserController::class)->except(['show']);
 
 Route::prefix('admin')->group(function () {
     Route::prefix('basic')->group(function() {
