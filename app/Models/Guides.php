@@ -24,7 +24,8 @@ class Guides extends Model
         'name',
         'filename',
         'project_id',
-        'description'
+        'description',
+        'sort_no'
     ];
 
     public function project()

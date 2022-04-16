@@ -46,26 +46,29 @@
                                                   name="description"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputDescription">File name</label>
-                                        <textarea id="inputDescription" class="form-control" rows="4"
-                                                  name="filename"></textarea>
+                                        <label for="inputFilename">File name</label>
+                                        <input type="text" id="inputFilename" class="form-control" name="filename">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputSortNo">Sort no</label>
+                                        <input type="text" id="inputSortNo" class="form-control" name="sort_no">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputStatus">Project</label>
                                         <select id="inputStatus" class="form-control custom-select" name="project">
                                             <option selected="" disabled="">Select project</option>
-                                            <option value="1">project 1</option>
-                                            <option value="2">project 2</option>
-                                            <option value="3">project 3</option>
+                                            @foreach($projects as $project)
+                                                <option value="{{ $project->id }}">{{ $project->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputStatus">Guide Role</label>
                                         <select id="inputStatus" class="form-control custom-select" name="role">
                                             <option selected="" disabled="">Select role</option>
-                                            <option value="1">role 1</option>
-                                            <option value="2">role 2</option>
-                                            <option value="3">role 3</option>
+                                            @foreach($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

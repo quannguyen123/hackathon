@@ -50,6 +50,10 @@
                                         <input type="text" id="inputName" class="form-control" name="filename" value="{{ $guide->filename }}">
                                     </div>
                                     <div class="form-group">
+                                        <label for="inputSortNo">Sort no</label>
+                                        <input type="text" id="inputSortNo" class="form-control" name="sort_no" value="{{ $guide->sort_no }}">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="inputStatus">Project</label>
                                         <select id="inputStatus" class="form-control custom-select" name="project">
                                             <option selected="" disabled="">Select project</option>

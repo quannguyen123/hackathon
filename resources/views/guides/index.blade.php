@@ -39,6 +39,7 @@
                                         <th>{{ __('FileName') }}</th>
                                         <th>{{ __('Projects') }}</th>
                                         <th>{{ __('Role') }}</th>
+                                        <th>{{ __('SortNo') }}</th>
                                         <th>{{ __('Created At') }}</th>
                                         <th>{{ __('Action') }}</th>
                                     </tr>
@@ -52,6 +53,7 @@
                                             <td>{{ $guide->filename }}</td>
                                             <td>{{ $guide->project ? $guide->project->name : '' }}</td>
                                             <td>{{ $guide->roles->first() ? $guide->roles->first()->name : '' }}</td>
+                                            <td>{{ $guide->sort_no }}</td>
                                             <td>{{ $guide->created_at }}</td>
                                             <td class="cms-action">
                                                 <a href="{{ route('guides.edit', ['id' => $guide->id]) }}" class="btn btn-warning btn-sm">{{ __('Edit') }}</a>

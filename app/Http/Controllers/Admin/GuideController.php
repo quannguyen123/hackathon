@@ -17,7 +17,7 @@ class GuideController extends Controller
      */
     public function index()
     {
-        $guides = Guides::orderByDesc('id')->paginate(10);
+        $guides = Guides::orderByDesc('id')->orderBy('sort_no')->paginate(10);
         return view('guides.index', compact('guides'));
     }
 
@@ -28,7 +28,9 @@ class GuideController extends Controller
      */
     public function create()
     {
-        return view('guides.create');
+        $projects = Project::all();
+        $roles = Role::all();
+        return view('guides.create', compact('projects', 'roles'));
     }
 
     /**
@@ -39,12 +41,14 @@ class GuideController extends Controller
      */
     public function store(Request $request)
     {
-        $guide = new Guides();
-        $guide->name = $request->get('name');
-        $guide->filename = $request->get('filename');
-        $guide->description = $request->get('description');
-        $guide->project_id = $request->get('project');
-        $guide->roles = $request->get('role');
+        $guide = Guides::create([
+           'name' => $request->get('name'),
+           'filename' => $request->get('filename'),
+           'description' => $request->get('description'),
+           'project_id' => $request->get('project'),
+           'sort_no' => $request->get('sort_no'),
+        ]);
+        $guide->roles()->attach([$request->get('role')]);
         $guide->save();
         return redirect()->route('guides.index');
     }
@@ -88,6 +92,7 @@ class GuideController extends Controller
         $guide->filename = $request->get('filename');
         $guide->description = $request->get('description');
         $guide->project_id = $request->get('project');
+        $guide->sort_no = $request->get('sort_no');
         $guide->roles()->sync([$request->get('role')]);
         $guide->save();
         return redirect()->route('guides.index');
