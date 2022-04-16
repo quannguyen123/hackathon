@@ -1,8 +1,8 @@
 @extends('master-not-sidebar')
 
 @section('content')
-    <body class="hold-transition login-page">
-    <div class="login-box">
+<body class="hold-transition login-page">
+    <div class="login-box" style="width: 480px">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
           <div class="card-header text-center">
@@ -20,7 +20,7 @@
                             name="email" 
                             value="{{ old('email') }}" 
                             required 
-                            placeholder="Email"
+                            placeholder="{{ __('message.email') }}"
                             autocomplete="email" 
                             autofocus>
                       <div class="input-group-append">
@@ -64,7 +64,7 @@
                           </div>
                       </div>
                       <div class="col-4">
-                          <button type="submit" class="btn btn-primary btn-block">Login</button>
+                          <button type="submit" class="btn btn-primary btn-block">{{ __('message.login') }}</button>
                       </div>
 
                   </div>

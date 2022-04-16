@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +22,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('dashboard', [App\Http\Controllers\ProfileController::class, 'dashboard'])->name('users.dashboard');
+});
 Route::resource('/users', UserController::class)->except(['show']);
 
 Route::prefix('admin')->group(function () {
@@ -36,4 +39,17 @@ Route::prefix('admin')->group(function () {
 
         Route::get('delete/{postMeta}', [App\Http\Controllers\Admin\BasicController::class, 'delete'])->name('basic-delete');
     });
+});
+
+Route::prefix('project')->group(function() {
+    Route::get('', [App\Http\Controllers\ProjectController::class, 'index'])->name('project-index');
+    // Route::get('detail/{project}', [App\Http\Controllers\ProjectController::class, 'detail'])->name('project-detail');
+
+    Route::get('create', [App\Http\Controllers\ProjectController::class, 'create'])->name('project-add');
+    Route::post('store', [App\Http\Controllers\ProjectController::class, 'store'])->name('project-store');
+
+    Route::get('edit/{project}', [App\Http\Controllers\ProjectController::class, 'edit'])->name('project-edit');
+    Route::post('update/{project}', [App\Http\Controllers\ProjectController::class, 'update'])->name('project-update');
+
+    Route::get('destroy/{project}', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('project-destroy');
 });
