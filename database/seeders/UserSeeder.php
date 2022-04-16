@@ -47,11 +47,11 @@ class UserSeeder extends Seeder
             'created_by'        => 1,
         ]);
         User::create([
-            'name'              => 'Tester',
+            'name'              => 'TuNT',
             'email'             => 'tunt@hybrid-technologies.vn',
             'password'          => bcrypt('hackathon@123456'),
             'phone_number'      => '0912345678',
-            'role_id'           => 4,
+            'role_id'           => 1,
             'created_by'        => 1,
         ]);
     }
