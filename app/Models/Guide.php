@@ -19,10 +19,8 @@ class Guide extends Model
      */
     protected $fillable = [
         'name',
-        'description',
-        'user_id',
         'filename',
+        'description',
         'project_id',
-        'private'
     ];
 }
