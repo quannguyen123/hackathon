@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>{{__('Name')}}</label>
+                            <label>{{__('message.user_name')}}</label>
                             <input name="name" value="{{ request('name') }}" class="form-control" placeholder="{{__('Name')}}">
                         </div>
                     </div>

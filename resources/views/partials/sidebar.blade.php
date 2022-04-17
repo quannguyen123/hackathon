@@ -19,6 +19,9 @@
                         </p>
                     </a>
                 </li>
+                @php 
+                    $roleId = auth()->user()->role_id;
+                @endphp 
                 @foreach($navigations as $nav)
                     @php
                         $childPermissions = array_filter(!empty($nav['children']) ? array_column($nav['children'], 'permission') : [$nav['permission']]);
