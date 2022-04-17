@@ -47,6 +47,30 @@ class UserSeeder extends Seeder
             'created_by'        => 1,
         ]);
         User::create([
+            'name'              => 'Developer 2',
+            'email'             => 'quannv2@hybrid-technologies.vn',
+            'password'          => bcrypt('hackathon@123456'),
+            'phone_number'      => '0912345678',
+            'role_id'           => 3,
+            'created_by'        => 1,
+        ]);
+        User::create([
+            'name'              => 'Developer 3',
+            'email'             => 'quannv3@hybrid-technologies.vn',
+            'password'          => bcrypt('hackathon@123456'),
+            'phone_number'      => '0912345678',
+            'role_id'           => 3,
+            'created_by'        => 1,
+        ]);
+        User::create([
+            'name'              => 'Developer 4',
+            'email'             => 'quannv4@hybrid-technologies.vn',
+            'password'          => bcrypt('hackathon@123456'),
+            'phone_number'      => '0912345678',
+            'role_id'           => 3,
+            'created_by'        => 1,
+        ]);
+        User::create([
             'name'              => 'TuNT',
             'email'             => 'tunt@hybrid-technologies.vn',
             'password'          => bcrypt('hackathon@123456'),

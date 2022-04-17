@@ -2,6 +2,7 @@
 
 namespace App\Http\View\Composers;
 
+use App\Models\User;
 use Illuminate\View\View;
 
 class NavigationComposer
@@ -17,19 +18,19 @@ class NavigationComposer
     {
         $navigations = [
             [
-                'name' => __('Users'),
+                'name' => __('message.users'),
                 'link' => '#',
                 'icon' => 'fa-user',
                 'children' => [
                     [
                         'name' => __('List'),
                         'link' => route('users.index'),
-                        'permission' => '',
+                        'permission' => [User::SUPER_ADMIN],
                     ],
                     [
                         'name' => __('Create'),
                         'link' => route('users.create'),
-                        'permission' => '',
+                        'permission' => [User::SUPER_ADMIN],
                         'include' => [
                             'users.edit',
                         ],
@@ -37,20 +38,20 @@ class NavigationComposer
                 ],
             ],
             [
-                'name' => __('Projects'),
+                'name' => __('message.projects'),
                 'link' => '#',
                 'icon' => 'nav-icon fas fa-chart-pie',
                 'children' => [
                     [
                         'name' => __('List'),
                         'link' => route('projects.index'),
-                        'permission' => '',
+                        'permission' => [User::SUPER_ADMIN,User::PROJECT_MANAGER],
                         'include' => [],
                     ],
                     [
                         'name' => __('Create'),
                         'link' => route('projects.create'),
-                        'permission' => '',
+                        'permission' => [User::SUPER_ADMIN],
                         'include' => [
                             'projects.edit',
                         ],
@@ -60,21 +61,21 @@ class NavigationComposer
             ],
 
             [
-                'name' => __('Issues'),
+                'name' => __('message.issues'),
                 'link' => '#',
                 'icon' => 'fa-bug',
                 'children' => [
                     [
                         'name' => __('List'),
                         'link' => route('issues.index'),
-                        'permission' => '',
+                        'permission' => [User::PROJECT_MANAGER, User::DEVELOPER, User::TESTER],
                         'include' => [],
                     ],
 
                     [
                         'name' => __('Create'),
                         'link' => route('issues.create'),
-                        'permission' => '',
+                        'permission' => [User::PROJECT_MANAGER, User::DEVELOPER, User::TESTER],
                         'include' => [
                             'issues.edit',
                         ],
@@ -91,14 +92,14 @@ class NavigationComposer
                     [
                         'name' => __('List'),
                         'link' => route('guides.index'),
-                        'permission' => '',
+                        'permission' => [User::PROJECT_MANAGER],
                         'include' => [],
                     ],
 
                     [
                         'name' => __('Create'),
                         'link' => route('guides.create'),
-                        'permission' => '',
+                        'permission' => [User::PROJECT_MANAGER],
                         'include' => [
                             'guides.edit',
                         ],

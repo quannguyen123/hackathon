@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Guide extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     protected $table = 'guides';
 
     /**
@@ -19,10 +19,18 @@ class Guide extends Model
      */
     protected $fillable = [
         'name',
-        'description',
-        'user_id',
         'filename',
+        'description',
         'project_id',
-        'private'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function guideMember()
+    {
+        $user = \Auth::user();
+        $userId = ($user->id) ? $user->id : 0;
+        return $this->belongsToMany(Project::class, 'guide_member', 'project_id', 'guide_id')->withPivot(['status','description'])->where('user_id', $userId);
+    }
 }

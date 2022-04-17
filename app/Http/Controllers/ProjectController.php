@@ -7,13 +7,21 @@ use App\Service\UserService;
 use App\Http\Requests\AddProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\GuideMember;
 use App\Models\ProjectMember;
+use Illuminate\Http\JsonResponse;
+use DB;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::with('user')->paginate(2);
+        $projects = Project::with('users');
+        if (auth()->user()->role_id == 2) {
+            $projects = $projects->where('manager_id', auth()->user()->id);
+        }
+
+        $projects = $projects->paginate(2);
         return view('projects.list', [
             'projects' => $projects
         ]);
@@ -36,7 +44,7 @@ class ProjectController extends Controller
         $project['end_date'] = date("Y/m/d 17:00:00", strtotime($project['end_date']));
 
         $projectData = Project::create($project);
-        $project['user_id'] = $project['manager_id'];
+        $project['user_id'][] = $project['manager_id'];
 
         foreach ($project['user_id'] as $user_id) {
             $projectMember = [
@@ -106,6 +114,41 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('projects.show', compact('project'));
+        $project = $project->with('guides')->with('users')->first();
+        $guideMembers = $project->guideMember;
+        return view('projects.show', compact('project', 'guideMembers'));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function quickUpdate(Request $request): JsonResponse
+    {
+        $user = \Auth::user();
+        $type = $request->input('type');
+        $value = $request->input('value');
+        $guideId = $request->input('guide_id');
+        $projectId = $request->input('project_id');
+        $userId = $user->id;
+        $result = GuideMember::where('guide_id', $guideId)->where('project_id', $projectId)->where('user_id', $userId)->first();
+        if ($result) {
+            $result->{$type} = $value;
+            if ($result->save()) {
+                return response()->json(['status' => 1]);
+            }
+        } else {
+            GuideMember::create([
+                'guide_id' => $guideId,
+                'project_id' => $projectId,
+                'user_id' => $userId,
+                $type => $value
+            ]);
+            return response()->json(['status' => 1]);
+        }
+
+        return response()->json(['status' => 0]);
     }
 }

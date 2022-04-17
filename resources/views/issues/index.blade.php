@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Dashboard</h1>
+            <h1>{{ __('message.issues') }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Advanced Form</li>
+              <li class="breadcrumb-item active">{{ __('message.issues') }}</li>
             </ol>
           </div>
         </div>
@@ -21,27 +21,29 @@
 
     <!-- Main content -->
     <section class="content">
-
-    <div class="card card-solid">
-        <div class="card-body pb-0">
-            <div class="row">
-                <div class="timeline-item">
-                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                    <div class="timeline-body">
-                        Take me to your leader!
-                        Switzerland is small and neutral!
-                        We are more like Germany, ambitious and misunderstood!
+        <div class="card card-solid">
+            <div class="card-body pb-0">
+                <div class="row">
+                    @foreach($issues as $issue)             
+                    <div class="post">
+                        <div class="issue-block">
+                            <span class="title">
+                                <a href="#">{{ $issue->name }}</a>
+                            </span>
+                            <span class="description">{{ $issue->project ? $issue->project->name : '' }}</span>
+                        </div>
+                        <p>{{ $issue->description }}</p>
+                        <p>
+                            <a href="{{ route('issues.edit', $issue->id) }}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-user"></i> View Profile
+                            </a>
+                        </p>
                     </div>
-                    <div class="timeline-footer">
-                        <a class="btn btn-warning btn-sm">View comment</a>
-                    </div>
-                </div> 
+                    @endforeach
+                </div>
             </div>
         </div>
-
-    </div>
-
-</section>
+    </section>
     <!-- /.content -->
 </div>
 @endsection

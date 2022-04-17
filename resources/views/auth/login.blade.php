@@ -6,11 +6,9 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
           <div class="card-header text-center">
-              <a href="https://jobs.hybrid-technologies.vn/" target="_blank" class="h1"><b>FaceDown</b></a>
+              <a href="https://jobs.hybrid-technologies.vn/" target="_blank" class="h1"><b>{{ __('message.system') }}</b></a>
           </div>
           <div class="card-body">
-              <p class="login-box-msg">Sign in to start your session</p>
-
               <form action="{{ route('login') }}" method="post">
                   @csrf
                   <div class="input-group mb-3">
@@ -41,7 +39,7 @@
                             class="form-control @error('password') is-invalid @enderror" 
                             name="password" 
                             required 
-                            placeholder="Password"
+                            placeholder="{{ __('message.password') }}"
                             autocomplete="current-password">
                       <div class="input-group-append">
                           <div class="input-group-text">
@@ -58,9 +56,7 @@
                       <div class="col-8">
                           <div class="icheck-primary">
                               <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                              <label for="remember">
-                                  Remember Me
-                              </label>
+                              <label for="remember">{{ __('message.remember') }}</label>
                           </div>
                       </div>
                       <div class="col-4">

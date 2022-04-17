@@ -7,12 +7,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Project {{ isset($project) ? 'Edit' : 'Add' }}</h1>
+          <h1>{{ isset($project) ? 'Sửa' : 'Thêm' }} dự án</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Project {{ isset($project) ? 'Edit' : 'Add' }}</li>
+            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+            <li class="breadcrumb-item active">{{ isset($project) ? 'Sửa' : 'Thêm' }} dự án</li>
           </ol>
         </div>
       </div>
@@ -35,7 +35,7 @@
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Project Info</h3>
+              <h3 class="card-title">Thông tin dự án</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -45,18 +45,18 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label for="inputName">Project Name</label>
+                <label for="inputName">Tên dự án<span class="text-danger">*</span></label>
                 <input type="text" id="inputName" name="name" value="{{ old('name', isset($project) ? $project['name'] : '') }}" class="form-control">
                 <code>{{ $errors->first('name') }}</code>
               </div>
               <div class="form-group">
-                <label for="inputDescription">Project Description</label>
+                <label for="inputDescription">Mô tả dự án</label>
                 <textarea id="inputDescription" name="description" class="form-control" rows="4">{{ old('description', isset($project) ? $project['description'] : '') }}</textarea>
               </div>
               <div class="form-group">
-                <label for="inputStatus">Manager</label>
+                <label for="inputStatus">Người quản lý<span class="text-danger">*</span></label>
                 <select id="inputStatus" name="manager_id" class="form-control custom-select">
-                  <option selected disabled>Select one</option>
+                  <option selected disabled>Chọn một</option>
                   @foreach($managers as $manager)
                   <option value="{{$manager['id']}}" @if(old('manager_id', isset($project) ? $project['manager_id'] : '') == $manager['id']) selected @endif>{{ $manager['name'] }}</option>
                   @endforeach
@@ -67,7 +67,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Start Date</label>
+                    <label>Ngày bắt đầu<span class="text-danger">*</span></label>
 
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -80,7 +80,7 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label>End Date</label>
+                  <label>Ngày kết thúc<span class="text-danger">*</span></label>
 
                   <div class="form-group">
                     <div class="input-group">
@@ -103,7 +103,7 @@
         <div class="col-md-6">
           <div class="card card-secondary">
             <div class="card-header">
-              <h3 class="card-title">Add Member</h3>
+              <h3 class="card-title">Thêm thành viên</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -113,7 +113,7 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label for="inputEstimatedBudget">Member</label>
+                <label for="inputEstimatedBudget">Chọn thành viên</label>
                 <select class="select2" multiple="multiple" name="user_id[]" data-placeholder="Select a State" style="width: 100%;">
                 <?php 
                   selectMember($members, old('user_id', isset($projectMembersID) ? $projectMembersID : []));
@@ -129,7 +129,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <input type="submit" value="{{ isset($project) ? 'Edit Project' : 'Create new Project' }}" class="btn btn-primary float-right">
+          <input type="submit" value="{{ isset($project) ? 'Sửa dự án' : 'Thêm dự án' }}" class="btn btn-primary float-right">
         </div>
       </div>
     </form>
