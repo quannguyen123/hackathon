@@ -49,8 +49,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('list', [GuideController::class, 'index'])->name('guides.index');
         Route::get('create', [GuideController::class, 'create'])->name('guides.create');
         Route::post('store', [GuideController::class, 'store'])->name('guides.store');
-        Route::get('edit/{id}', [GuideController::class, 'edit'])->name('guides.edit');
-        Route::post('update/{id}', [GuideController::class, 'update'])->name('guides.update');
-        Route::post('destroy/{id}', [GuideController::class, 'destroy'])->name('guides.delete');
+        Route::get('edit/{project_id}', [GuideController::class, 'edit'])->name('guides.edit');
+        Route::post('update/{project_id}', [GuideController::class, 'update'])->name('guides.update');
+        Route::post('destroy/{project_id}', [GuideController::class, 'destroy'])->name('guides.delete');
     });
 });

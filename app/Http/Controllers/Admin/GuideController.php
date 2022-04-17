@@ -7,6 +7,7 @@ use App\Models\Guides;
 use App\Models\Project;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GuideController extends Controller
 {
@@ -41,15 +42,19 @@ class GuideController extends Controller
      */
     public function store(Request $request)
     {
-        $guide = Guides::create([
-           'name' => $request->get('name'),
-           'filename' => $request->get('filename'),
-           'description' => $request->get('description'),
-           'project_id' => $request->get('project'),
-           'sort_no' => $request->get('sort_no'),
-        ]);
-        $guide->roles()->attach([$request->get('role')]);
-        $guide->save();
+        $sort_no = 1;
+        foreach ($request->get('name') as $key => $name) {
+            $guide = Guides::create([
+                'name' => $name,
+                'description' => $request->get('description')[$key],
+                'project_id' => $request->get('project'),
+                'sort_no' => $sort_no,
+            ]);
+            $guide->roles()->attach([$request->get('role')]);
+            $guide->save();
+            $sort_no++;
+        }
+
         return redirect()->route('guides.index');
     }
 
@@ -67,46 +72,68 @@ class GuideController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param  $project_id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($project_id)
     {
-        $guide = Guides::where('id', $id)->first();
+        $guides = Guides::where('project_id', $project_id)->orderBy('sort_no')->get();
         $projects = Project::all();
         $roles = Role::all();
-        return view('guides.edit', compact('guide', 'projects', 'roles'));
+        return view('guides.edit', compact('guides', 'project_id', 'projects', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  $id
+     * @param  $project_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $project_id)
     {
-        $guide = Guides::where('id', $id)->first();
-        $guide->name = $request->get('name');
-        $guide->filename = $request->get('filename');
-        $guide->description = $request->get('description');
-        $guide->project_id = $request->get('project');
-        $guide->sort_no = $request->get('sort_no');
-        $guide->roles()->sync([$request->get('role')]);
-        $guide->save();
+        $guideIds = $request->get('guide_id');
+        try {
+            DB::beginTransaction();
+            $sort_no = 1;
+            foreach ($request->get('name') as $key => $name) {
+                if (isset($guideIds[$key])) {
+                    $guide = Guides::find($guideIds[$key])->first();
+                    $guide->name = $name;
+                    $guide->description = $request->get('description')[$key];
+                    $guide->project_id = $project_id;
+                    $guide->sort_no = $sort_no;
+                    $guide->roles()->sync([$request->get('role')]);
+                } else {
+                    $guide = Guides::create([
+                        'name' => $name,
+                        'description' => $request->get('description')[$key],
+                        'project_id' => $project_id,
+                        'sort_no' => $sort_no,
+                    ]);
+                    $guide->roles()->attach([$request->get('role')]);
+                }
+                $guide->save();
+
+                $sort_no++;
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+
         return redirect()->route('guides.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param  $project_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($project_id)
     {
-        $guide = Guides::find($id)->delete();
+        $guide = Guides::where('project_id', $project_id)->delete();
         return redirect()->route('guides.index');
     }
 }

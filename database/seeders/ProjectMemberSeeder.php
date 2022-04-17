@@ -38,5 +38,15 @@ class ProjectMemberSeeder extends Seeder
             'project_id'        => 1,
             'user_id'           => 5,
         ]);
+
+        ProjectMember::create([
+            'project_id'        => 2,
+            'user_id'           => 1,
+        ]);
+
+        ProjectMember::create([
+            'project_id'        => 2,
+            'user_id'           => 2,
+        ]);
     }
 }

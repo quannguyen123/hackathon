@@ -30,6 +30,8 @@
   <link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
+  
+  <link rel="stylesheet" href="{{asset('css/custom.css')}}">
   @stack('styles')
   <script>
     var csrf_token = '{{ csrf_token() }}';

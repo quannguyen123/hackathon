@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name'              => 'admin',
+            'name'              => 'Nguyễn Quang Cương - Admin',
             'email'             => 'cuongnq2@hybrid-technologies.vn',
             'password'          => bcrypt('hackathon@123456'),
             'phone_number'      => '0912345678',
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'created_by'        => 1,
         ]);
         User::create([
-            'name'              => 'Project Manager',
+            'name'              => 'Nguyễn Văn Đức PM',
             'email'             => 'ducnv@hybrid-technologies.vn',
             'password'          => bcrypt('hackathon@123456'),
             'phone_number'      => '0912345678',
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'created_by'        => 1,
         ]);
         User::create([
-            'name'              => 'BrSE',
+            'name'              => 'Trang - BrSE',
             'email'             => 'trangttt@hybrid-technologies.vn',
             'password'          => bcrypt('hackathon@123456'),
             'phone_number'      => '0912345678',
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             'created_by'        => 1,
         ]);
         User::create([
-            'name'              => 'Developer',
+            'name'              => 'Quân - Developer',
             'email'             => 'quannv@hybrid-technologies.vn',
             'password'          => bcrypt('hackathon@123456'),
             'phone_number'      => '0912345678',
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             'created_by'        => 1,
         ]);
         User::create([
-            'name'              => 'Developer 2',
+            'name'              => 'Tú Developer',
             'email'             => 'quannv2@hybrid-technologies.vn',
             'password'          => bcrypt('hackathon@123456'),
             'phone_number'      => '0912345678',

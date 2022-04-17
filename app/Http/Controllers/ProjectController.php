@@ -114,7 +114,6 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $project = $project->with('guides')->with('users')->first();
         $guideMembers = $project->guideMember;
         return view('projects.show', compact('project', 'guideMembers'));
     }
