@@ -18,7 +18,7 @@
                             name="email" 
                             value="{{ old('email') }}" 
                             required 
-                            placeholder="{{ __('message.email.title') }}"
+                            placeholder="{{ __('message.email') }}"
                             autocomplete="email" 
                             autofocus>
                       <div class="input-group-append">
@@ -39,7 +39,7 @@
                             class="form-control @error('password') is-invalid @enderror" 
                             name="password" 
                             required 
-                            placeholder="Password"
+                            placeholder="{{ __('message.password') }}"
                             autocomplete="current-password">
                       <div class="input-group-append">
                           <div class="input-group-text">
