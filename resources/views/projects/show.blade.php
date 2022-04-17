@@ -21,7 +21,9 @@
   </section>
   <!-- Main content -->
   <section class="content">
-dfdsfds
+    @foreach ($project->guides as $guide )
+        
+    @endforeach
   </section>
   <!-- /.content -->
 </div>
