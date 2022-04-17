@@ -9,7 +9,9 @@ class IssueController extends Controller
 {
     public function index()
     {    
-        $issues = Issue::orderByDesc('id')->paginate();
+        $user = \Auth::user();
+        $projects = $user->projects()->pluck('projects.id')->all();
+        $issues = Issue::whereIn('project_id', $projects)->orWhere('private', 0)->orderByDesc('id')->paginate();
 
         return view('issues.index', compact('issues'));
     }
