@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Admin\GuideController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,5 +29,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/users', UserController::class)->except(['show']);
     /** Project */
     Route::resource('/projects', ProjectController::class);
-   
+    Route::prefix('guide')->group(function() {
+        Route::get('list', [GuideController::class, 'index'])->name('guides.index');
+        Route::get('create', [GuideController::class, 'create'])->name('guides.create');
+        Route::post('store', [GuideController::class, 'store'])->name('guides.store');
+        Route::get('edit/{id}', [GuideController::class, 'edit'])->name('guides.edit');
+        Route::post('update/{id}', [GuideController::class, 'update'])->name('guides.update');
+        Route::post('destroy/{id}', [GuideController::class, 'destroy'])->name('guides.delete');
+    });
 });
