@@ -24,9 +24,6 @@ return [
         'create' => 'Tạo vấn đề',
         'edit' => 'Thay đổi vấn đề',
         'title' => 'Tiêu đề',
-        'required' => 'Vui lòng nhập vấn đề',
-        'max' => 'Độ dài không vượt quá 255',
-        'min' => 'Độ dài không nhỏ hơn 5',
         'security' => 'Quyền công khai ',
         'public' => 'Công khai',
         'private' => 'Riêng tư'
@@ -42,8 +39,8 @@ return [
     'fields' => [
         'issue' => [
             'required' => 'Vui lòng nhập vấn đề',
-            'max' => 'Độ dài không vượt quá 255',
-            'min' => 'Độ dài không nhỏ hơn 5',
+            'max' => 'Độ dài không vượt quá 255 ký tự',
+            'min' => 'Độ dài không nhỏ hơn 5 ký tự',
         ],
         'email' => [
             'required' => 'Vui lòng nhập email',
@@ -54,7 +51,10 @@ return [
             'max' => 'Độ dài không vượt quá 255',
             'required' => 'Vui lòng nhập số điện thoại',    
         ],
-        
+        'description' => [
+            'min' => 'Độ dài không nhỏ hơn 5 ký tự',
+            'required' => 'Vui lòng nhập số điện thoại',    
+        ],
     ],
     'home' => 'Trang chủ'
 ];
