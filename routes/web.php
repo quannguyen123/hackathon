@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IssueController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Admin\GuideController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,14 +27,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/issues', IssueController::class)->except(['show']) ;
     /** Users */
     Route::resource('/users', UserController::class)->except(['show']);
-    
     /** Project */
-    Route::get('/projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('project-index');
-    // Route::get('detail/{project}', [App\Http\Controllers\ProjectController::class, 'detail'])->name('project-detail');
-    Route::get('/projects/create', [App\Http\Controllers\ProjectController::class, 'create'])->name('project-add');
-    Route::post('/projects/store', [App\Http\Controllers\ProjectController::class, 'store'])->name('project-store');
-    Route::get('/projects/edit/{project}', [App\Http\Controllers\ProjectController::class, 'edit'])->name('project-edit');
-    Route::post('/projects/update/{project}', [App\Http\Controllers\ProjectController::class, 'update'])->name('project-update');
-    Route::get('/projects/destroy/{project}', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('project-destroy');
-   
+    Route::resource('/projects', ProjectController::class);
+    Route::prefix('guide')->group(function() {
+        Route::get('list', [GuideController::class, 'index'])->name('guides.index');
+        Route::get('create', [GuideController::class, 'create'])->name('guides.create');
+        Route::post('store', [GuideController::class, 'store'])->name('guides.store');
+        Route::get('edit/{id}', [GuideController::class, 'edit'])->name('guides.edit');
+        Route::post('update/{id}', [GuideController::class, 'update'])->name('guides.update');
+        Route::post('destroy/{id}', [GuideController::class, 'destroy'])->name('guides.delete');
+    });
 });

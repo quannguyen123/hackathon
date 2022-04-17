@@ -1,5 +1,5 @@
 @extends('master')
-
+@section('page-title', __('Dashboard'))
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -49,8 +49,8 @@
                                     <a href="#" class="btn btn-sm bg-teal">
                                         <i class="fas fa-comments"></i>
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-primary">
-                                        <i class="fas fa-user"></i> View Profile
+                                    <a href="{{route('projects.show',["project"=>$project->id])}}" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-user"></i> View Project
                                     </a>
                                 </div>
                             </div>

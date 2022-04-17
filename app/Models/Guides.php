@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Guide extends Model
+class Guides extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
+    /**
+     * @var mixed
+     */
     protected $table = 'guides';
 
     /**
@@ -20,7 +23,18 @@ class Guide extends Model
     protected $fillable = [
         'name',
         'filename',
-        'description',
         'project_id',
+        'description',
+        'sort_no'
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, GuideRole::class, 'guide_id', 'role_id');
+    }
 }

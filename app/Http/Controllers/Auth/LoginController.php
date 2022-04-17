@@ -31,7 +31,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    
+
     public function redirectTo() {
         $user = \Auth::user();
         if ($user->role_id == User::PROJECT_MANAGER) {
@@ -41,8 +41,8 @@ class LoginController extends Controller
         return route('users.dashboard');
     }
 
-    protected function loggedOut(Request $request) {
-        
+    protected function loggedOut(Request $request)
+    {
         return redirect('/login');
     }
 }

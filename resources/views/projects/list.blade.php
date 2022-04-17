@@ -25,18 +25,11 @@
 
     <!-- Default box -->
     <div class="card">
-        <div class="card-header">
-        <h3 class="card-title">Projects</h3>
-
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-            <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-            <i class="fas fa-times"></i>
-            </button>
-        </div>
-        </div>
+        @if (session('status'))
+            <div class="alert alert-success hide-alert-message">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="card-body p-0">
             <table class="table table-striped projects">
                 <thead>
@@ -101,14 +94,13 @@
                             <span class="badge badge-success">Success</span>
                         </td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-info btn-sm" href="{{ route('project-edit', $project['id']) }}">
+                            <a class="btn btn-info btn-sm" href="{{ route('projects.edit', $project['id']) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
                                 Edit
                             </a>
-                            <a class="btn btn-danger btn-sm btn-confirm-delete" href="{{ route('project-destroy', $project['id']) }}">
-                                <i class="fas fa-trash">
-                                </i>
+                            <a class="btn btn-danger btn-sm" href="javascript:"  onclick="deleteResource('{{ route('projects.destroy', ['project' => $project['id']]) }}', '{{ route('projects.index') }}')">
+                                <i class="fas fa-trash"></i>
                                 Delete
                             </a>
                         </td>
@@ -129,3 +121,7 @@
 </div>
 <!-- /.content-wrapper -->
 @endsection
+
+@push('scripts')
+    @include('partials.cards.delete')
+@endpush
