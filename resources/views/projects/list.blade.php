@@ -94,14 +94,13 @@
                             <span class="badge badge-success">Success</span>
                         </td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-info btn-sm" href="{{ route('project-edit', $project['id']) }}">
+                            <a class="btn btn-info btn-sm" href="{{ route('projects.edit', $project['id']) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
                                 Edit
                             </a>
-                            <a class="btn btn-danger btn-sm btn-confirm-delete" href="{{ route('project-destroy', $project['id']) }}">
-                                <i class="fas fa-trash">
-                                </i>
+                            <a class="btn btn-danger btn-sm" href="javascript:"  onclick="deleteResource('{{ route('projects.destroy', ['project' => $project['id']]) }}', '{{ route('projects.index') }}')">
+                                <i class="fas fa-trash"></i>
                                 Delete
                             </a>
                         </td>
@@ -122,3 +121,7 @@
 </div>
 <!-- /.content-wrapper -->
 @endsection
+
+@push('scripts')
+    @include('partials.cards.delete')
+@endpush

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -40,7 +41,7 @@ class LoginController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $this->validateLogin($request);
 
@@ -79,8 +80,8 @@ class LoginController extends Controller
         return route('users.dashboard');
     }
 
-    protected function loggedOut(Request $request) {
-        
+    protected function loggedOut(Request $request)
+    {
         return redirect('/login');
     }
 }

@@ -13,8 +13,8 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    url: url, 
-                    type: 'DELETE', 
+                    url: url,
+                    type: 'POST',
                     success: function(result) {
                         Swal.fire('{{ __('Deleted!') }}', '{{ __('Your file has been deleted.') }}', 'success').
                             then((result) => {
