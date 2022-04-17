@@ -19,8 +19,8 @@ class ProjectController extends Controller
     }
 
     public function create() {
-        $managers = UserService::getUserByRole(2);
-        $members = UserService::getUserByRole();
+        $managers = UserService::getUserByRole([2]);
+        $members = UserService::getUserByRole([2,3,4]);
         return view('project.add', [
             'managers' => $managers,
             'members' => $members,
@@ -33,6 +33,7 @@ class ProjectController extends Controller
         $project['end_date'] = date("Y/m/d 17:00:00", strtotime($project['end_date']));
         
         $projectData = Project::create($project);
+        $project['user_id'] = $project['manager_id'];
 
         foreach($project['user_id'] as $user_id) {
             $projectMember = [
@@ -42,7 +43,7 @@ class ProjectController extends Controller
             ProjectMember::insert($projectMember);
         }
 
-        return redirect(route('project-index'));
+        return redirect(route('project-index'))->with('status', 'Project Created!');
     }
 
     public function edit(Project $project) {
@@ -51,8 +52,8 @@ class ProjectController extends Controller
             return $member['user_id'];
         }, $projectMembers);
 
-        $managers = UserService::getUserByRole(2);
-        $members = UserService::getUserByRole();
+        $managers = UserService::getUserByRole([2]);
+        $members = UserService::getUserByRole([2,3,4]);
         return view('project.add',[
             'managers' => $managers,
             'project' => $project,
@@ -84,7 +85,7 @@ class ProjectController extends Controller
             }
         }
 
-        return redirect(route('project-index'));
+        return redirect(route('project-index'))->with('status', 'Project Updated!');
     }
 
     public function destroy(Project $project) {
@@ -92,6 +93,6 @@ class ProjectController extends Controller
         $project->save();
 
         ProjectMember::where('project_id', $project['id'])->delete();
-        return redirect(route('project-index'));
+        return redirect(route('project-index'))->with('status', 'Project Deleted!');
     }
 }

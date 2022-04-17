@@ -4,4 +4,8 @@ $(document).ready(function(){
         return false;
         }
     });
+
+    $(".hide-alert-message").fadeTo(2000, 500).slideUp(500, function(){
+        $(".hide-alert-message").slideUp(500);
+    });
 });

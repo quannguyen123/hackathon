@@ -5,9 +5,9 @@ use App\Models\User;
 
 class UserService
 {
-    public static function getUserByRole($roleId = null) {
+    public static function getUserByRole($roleId = []) {
         if (!empty($roleId)) {
-            $project = User::where('role_id', $roleId)->get();
+            $project = User::whereIn('role_id', $roleId)->get();
         } else {
             $project = User::get();
         }
