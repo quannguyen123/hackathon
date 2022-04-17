@@ -68,7 +68,7 @@
                                 </select>
                             </div>    
                             <div class="form-group">
-                                <a href="#" class="btn btn-secondary">Cancel</a>
+                                <a href="#" class="btn btn-secondary">__('message.cancel')</a>
                                 <input type="submit" value="{{ __('message.project') }}" class="btn btn-success float-right">
                             </div>    
                         </div>

@@ -25,7 +25,7 @@
                     @include('users.search')
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">{{ __('List of users') }}</h3>
+                            <h3 class="card-title">{{ __('message.user.list') }}</h3>
                             <div class="card-tools">
                                 @include('partials.cards.search')
                             </div>
@@ -35,12 +35,12 @@
                                 <thead>
                                     <tr>
                                         <th>{{ __('ID') }}</th>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Phone') }}</th>
-                                        <th>{{ __('Email') }}</th>
-                                        <th>{{ __('Roles') }}</th>
+                                        <th>{{ __('message.user_name') }}</th>
+                                        <th>{{ __('message.phone_number') }}</th>
+                                        <th>{{ __('message.email') }}</th>
+                                        <th>{{ __('message.role') }}</th>
                                         <th>{{ __('Created At') }}</th>
-                                        <th>{{ __('Action') }}</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>

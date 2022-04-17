@@ -17,18 +17,18 @@ use App\Http\Controllers\Admin\GuideController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// use App\Http\Controllers\Admin\BasicController;
-
 Auth::routes();
+
 Route::group(['middleware' => 'auth'], function () {
     /** Dashboard */
     Route::get('/', [ProfileController::class, 'dashboard'])->name('users.dashboard');
     /** Issues */
-    Route::resource('/issues', IssueController::class)->except(['show']);
+    Route::resource('/issues', IssueController::class)->except(['show'])->middleware(['role:2|3|4']);
     /** Users */
-    Route::resource('/users', UserController::class)->except(['show']);
+    Route::resource('/users', UserController::class)->except(['show'])->middleware(['role:1']);
     /** Project */
-    Route::resource('/projects', ProjectController::class);
+    Route::resource('/projects', ProjectController::class)->middleware(['role:1']);
+    
     Route::prefix('guide')->group(function() {
         Route::get('list', [GuideController::class, 'index'])->name('guides.index');
         Route::get('create', [GuideController::class, 'create'])->name('guides.create');
