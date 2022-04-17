@@ -8,12 +8,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Projects</h1>
+            <h1>Dự án</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Projects</li>
+            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Dự án</li>
             </ol>
         </div>
         </div>
@@ -38,16 +38,16 @@
                             #
                         </th>
                         <th style="width: 20%">
-                            Project Name
+                            Tên dự án
                         </th>
                         <th style="width: 30%">
-                            Team Members
+                            Thành viên
                         </th>
                         <th>
-                            Project Description
+                            Mô tả dự án
                         </th>
                         <th style="width: 8%" class="text-center">
-                            Status
+                            Trạng thái
                         </th>
                         <th style="width: 20%">
                         </th>
@@ -57,7 +57,7 @@
                     @foreach($projects as $project)
                     <tr>
                         <td>
-                            #
+                            {{ $project['id'] }}
                         </td>
                         <td>
                                 <a>
@@ -65,7 +65,7 @@
                                 </a>
                                 <br/>
                                 <small>
-                                    Created 
+                                    Ngày tạo:  
                                     <code>
                                         <?php echo(date("Y-m-d", strtotime($project['created_at']))); ?>
                                     </code>
@@ -75,10 +75,9 @@
                         <td>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <!-- <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png"> -->
                                     @foreach($project['users'] as $user)
                                     <a href="#">
-                                        <span class="badge badge-success">{{ $user['name'] }}</span>
+                                        <span class="badge badge-{{ $user['id'] == $project['manager_id'] ? 'success' : 'warning' }}">{{ $user['name'] }}</span>
                                     </a>
                                     @endforeach
                                 </li>
@@ -97,11 +96,11 @@
                             <a class="btn btn-info btn-sm" href="{{ route('projects.edit', $project['id']) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
-                                Edit
+                                Sửa
                             </a>
                             <a class="btn btn-danger btn-sm" href="javascript:"  onclick="deleteResource('{{ route('projects.destroy', ['project' => $project['id']]) }}', '{{ route('projects.index') }}')">
                                 <i class="fas fa-trash"></i>
-                                Delete
+                                Xóa
                             </a>
                         </td>
                     </tr>

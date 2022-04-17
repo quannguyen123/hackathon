@@ -1,0 +1,19 @@
+.issue-block .title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: -1px;
+    display: block;
+}
+
+.issue-block .description {
+    display: block;
+    margin-left: 0px;
+    color: #6c757d;
+    font-size: 13px;
+    margin-top: -3px;
+}
+
+.post .issue-block {
+    margin-bottom: 15px;
+    width: 100%;
+}

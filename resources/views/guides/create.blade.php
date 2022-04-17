@@ -26,7 +26,7 @@
                         <div class="col-md">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">General</h3>
+                                    <h3 class="card-title">Project</h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                                 title="Collapse">
@@ -35,24 +35,6 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-
-                                    <div class="form-group">
-                                        <label for="inputName">Name</label>
-                                        <input type="text" id="inputName" class="form-control" name="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputDescription">Description</label>
-                                        <textarea id="inputDescription" class="form-control" rows="4"
-                                                  name="description"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputFilename">File name</label>
-                                        <input type="text" id="inputFilename" class="form-control" name="filename">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputSortNo">Sort no</label>
-                                        <input type="text" id="inputSortNo" class="form-control" name="sort_no">
-                                    </div>
                                     <div class="form-group">
                                         <label for="inputStatus">Project</label>
                                         <select id="inputStatus" class="form-control custom-select" name="project">
@@ -76,6 +58,38 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Guide</h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="parent-guide post">
+                                        <div class="form-group">
+                                            <label for="inputName">Name</label>
+                                            <input type="text" id="inputName" class="form-control" name="name[]">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputDescription">Description</label>
+                                            <textarea id="inputDescription" class="form-control" rows="4"
+                                                      name="description[]"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="button" value="Add Guide" id="add-guide" class="btn btn-primary float-right">
+                                        <input type="button" value="Remove" id="remove-guide" class="btn btn-danger">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-12">
                             <a href="#" class="btn btn-secondary">Cancel</a>
                             <input type="submit" value="Create" class="btn btn-success float-right">
@@ -89,4 +103,18 @@
 @endsection
 @push('scripts')
     @include('partials.cards.delete')
+@endpush
+@push('scripts')
+    <script>
+        $(function(){
+            $("#add-guide").click(function(){
+                $(".parent-guide:last").clone().insertAfter(".parent-guide:last");
+                $(".parent-guide:last").find("input:text").val("");
+                $(".parent-guide:last").find('textarea').val("");
+            });
+            $("#remove-guide").click(function(){
+                $(".parent-guide:last").remove();
+            });
+        });
+    </script>
 @endpush

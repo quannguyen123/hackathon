@@ -35,12 +35,9 @@
                                     <tr>
                                         <th>{{ __('ID') }}</th>
                                         <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Description') }}</th>
-                                        <th>{{ __('FileName') }}</th>
                                         <th>{{ __('Projects') }}</th>
                                         <th>{{ __('Role') }}</th>
                                         <th>{{ __('SortNo') }}</th>
-                                        <th>{{ __('Created At') }}</th>
                                         <th>{{ __('Action') }}</th>
                                     </tr>
                                 </thead>
@@ -49,15 +46,12 @@
                                         <tr>
                                             <td>{{ $guide->id }}</td>
                                             <td>{{ $guide->name }}</td>
-                                            <td>{{ $guide->description }}</td>
-                                            <td>{{ $guide->filename }}</td>
                                             <td>{{ $guide->project ? $guide->project->name : '' }}</td>
                                             <td>{{ $guide->roles->first() ? $guide->roles->first()->name : '' }}</td>
                                             <td>{{ $guide->sort_no }}</td>
-                                            <td>{{ $guide->created_at }}</td>
                                             <td class="cms-action">
-                                                <a href="{{ route('guides.edit', ['id' => $guide->id]) }}" class="btn btn-warning btn-sm">{{ __('Edit') }}</a>
-                                                <a href="javascript:" class="btn btn-danger btn-sm" onclick="deleteResource('{{ route('guides.delete', ['id' => $guide->id]) }}', '{{ route('guides.index') }}')">{{ __('Delete') }}</a>
+                                                <a href="{{ route('guides.edit', ['project_id' => $guide->project->id]) }}" class="btn btn-warning btn-sm">{{ __('Edit') }}</a>
+                                                <a href="javascript:" class="btn btn-danger btn-sm" onclick="deleteResource('{{ route('guides.delete', ['project_id' => $guide->project->id]) }}', '{{ route('guides.index') }}')">{{ __('Delete') }}</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -72,7 +66,7 @@
                             </div>
                         @endif
                     </div>
-                    <a href="{{ route('guides.create') }}" class="btn btn-success float-right">{{ __('Create') }}</a>
+                    <a href="{{ route('guides.create') }}" class="btn btn-success float-right">{{ __('Create Guide') }}</a>
                 </div>
             </div>
         </div>
