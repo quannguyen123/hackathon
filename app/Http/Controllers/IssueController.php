@@ -41,14 +41,23 @@ class IssueController extends Controller
         
         Issue::create($data);
 
-        return redirect()->back()->with('success', __('Created success'));
+        return redirect()->route('issues.index')->with('success', __('Updated success'));
     }
 
     public function edit($id)
     {
+        $members = collect([]);
+        $user = \Auth::user();
+        $projects = $user->projects()->get();
+        foreach ($projects as $project) {
+            if ($project->manager_id === $user->id) {
+                $users = $project->users()->get();
+                $members = $members->merge($users);
+            }
+        }
         $issue = Issue::find($id);
         
-        return view('issues.form', compact('issue'));
+        return view('issues.form', compact('issue','projects'));
     }
 
     public function update(IssueRequest $request, $id)
@@ -61,7 +70,7 @@ class IssueController extends Controller
         ];
         Issue::find($id)->update($data);
         
-        return redirect()->back()->with('success', __('Updated success'));
+        return redirect()->route('issues.index')->with('success', __('Updated success'));
     }
 
     public function delete($id)

@@ -21,7 +21,11 @@
 
     <!-- Main content -->
     <section class="content">
+        @if (empty($issue))
         <form action="{{ route('issues.store') }}" method="post">
+        @else
+        <form action="{{ route('issues.update', ['issue' => $issue->id]) }}" method="post">
+        @endif
             @csrf
             @if (!empty($issue)) @method('PUT') @endif
             <div class="row">
@@ -35,10 +39,10 @@
                                 <input 
                                     type="text" 
                                     id="email" 
-                                    class="form-control @error('title') is-invalid @enderror"
+                                    class="form-control @error('name') is-invalid @enderror"
                                     name="name" 
                                     value="{{ old('name', isset($issue) ? $issue->name : '') }}">
-                                @error('title')
+                                @error('name')
                                 <span class="help-block m-b-none text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -50,14 +54,25 @@
                                     rows="4"
                                     name="description"
                                     value="{{ old('description', isset($issue) ? $issue->description : '') }}"></textarea>
+                                @error('description')
+                                <span class="help-block m-b-none text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="project">{{ __('message.project') }}</label>
+                                <label for="project">{{ __('message.projects') }}</label>
                                 <select id="project" class="form-control custom-select" name="project_id">
                                     @foreach($projects as $project)
+                                    @if (!empty($issue) && $issue->project_id == $project->id)
+                                    <option value="{{$project->id}}" selected="">{{ $project->name }}</option>
+                                    @else
                                         <option value="{{$project->id}}">{{ $project->name }}</option>
+                                    @endif
+                                        
                                     @endforeach
                                 </select>
+                                @error('project_id')
+                                <span class="help-block m-b-none text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -68,8 +83,8 @@
                                 </select>
                             </div>    
                             <div class="form-group">
-                                <a href="#" class="btn btn-secondary">__('message.cancel')</a>
-                                <input type="submit" value="{{ __('message.project') }}" class="btn btn-success float-right">
+                                <a href="{{ route('issues.index') }}" class="btn btn-secondary">{{__('message.cancel') }}</a>
+                                <input type="submit" value="{{ __('message.save') }}" class="btn btn-success float-right">
                             </div>    
                         </div>
                     </div>
