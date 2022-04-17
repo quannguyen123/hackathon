@@ -98,14 +98,14 @@
                         </div>
                       </p>
 
-                      <form class="form-horizontal">
+                      <div class="form-horizontal">
                         <div class="input-group input-group-sm mb-0">
                           <input class="form-control form-control-sm" placeholder="Lý do không thực hiện được" value="{{ ($guideMember)? $guideMember->pivot->description:'' }}" id="description_{{ $guide->id }}">
                           <div class="input-group-append">
                             <button type="button" class="btn btn-danger quick-submit" data-id="{{ $guide->id }}" data-project-id="{{ $project->id }}" data-type="description" >Send</button>
                           </div>
                         </div>
-                      </form>
+                      </div>
                     </div>
                     <!-- /.post -->
                   @endforeach
