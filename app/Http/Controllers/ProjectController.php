@@ -15,7 +15,12 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::with('users')->paginate(2);
+        $projects = Project::with('users');
+        if (auth()->user()->role_id == 2) {
+            $projects = $projects->where('manager_id', auth()->user()->id);
+        }
+
+        $projects = $projects->paginate(2);
         return view('projects.list', [
             'projects' => $projects
         ]);
@@ -38,7 +43,7 @@ class ProjectController extends Controller
         $project['end_date'] = date("Y/m/d 17:00:00", strtotime($project['end_date']));
 
         $projectData = Project::create($project);
-        $project['user_id'] = $project['manager_id'];
+        $project['user_id'][] = $project['manager_id'];
 
         foreach ($project['user_id'] as $user_id) {
             $projectMember = [

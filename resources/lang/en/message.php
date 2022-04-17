@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'system' => 'Hybrid Techonologies',
+    'system' => 'Hybrid Technologies',
     'login' => 'Đăng nhập',
     'logout' => 'Thoát',
     'projects' => 'Dự án',
