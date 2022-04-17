@@ -43,16 +43,16 @@ class NavigationComposer
                 'children' => [
                     [
                         'name' => __('List'),
-                        'link' => route('project-index'),
+                        'link' => route('projects.index'),
                         'permission' => '',
                         'include' => [],
                     ],
                     [
                         'name' => __('Create'),
-                        'link' => route('project-add'),
+                        'link' => route('projects.create'),
                         'permission' => '',
                         'include' => [
-                            'project-edit',
+                            'projects.edit',
                         ],
                     ],
                 

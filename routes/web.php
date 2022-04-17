@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IssueController;
+use App\Http\Controllers\ProjectController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,14 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/issues', IssueController::class)->except(['show']) ;
     /** Users */
     Route::resource('/users', UserController::class)->except(['show']);
-    
     /** Project */
-    Route::get('/projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('project-index');
-    // Route::get('detail/{project}', [App\Http\Controllers\ProjectController::class, 'detail'])->name('project-detail');
-    Route::get('/projects/create', [App\Http\Controllers\ProjectController::class, 'create'])->name('project-add');
-    Route::post('/projects/store', [App\Http\Controllers\ProjectController::class, 'store'])->name('project-store');
-    Route::get('/projects/edit/{project}', [App\Http\Controllers\ProjectController::class, 'edit'])->name('project-edit');
-    Route::post('/projects/update/{project}', [App\Http\Controllers\ProjectController::class, 'update'])->name('project-update');
-    Route::get('/projects/destroy/{project}', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('project-destroy');
+    Route::resource('/projects', ProjectController::class);
    
 });

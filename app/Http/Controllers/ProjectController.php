@@ -11,31 +11,34 @@ use App\Models\ProjectMember;
 
 class ProjectController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $projects = Project::with('user')->paginate(2);
-        return view('project.list', [
+        return view('projects.list', [
             'projects' => $projects
         ]);
     }
 
-    public function create() {
+    public function create()
+    {
         $managers = UserService::getUserByRole([2]);
-        $members = UserService::getUserByRole([2,3,4]);
-        return view('project.add', [
+        $members = UserService::getUserByRole([2, 3, 4]);
+        return view('projects.add', [
             'managers' => $managers,
             'members' => $members,
         ]);
     }
 
-    public function store(AddProjectRequest $request) {
+    public function store(AddProjectRequest $request)
+    {
         $project = $request->all();
         $project['start_date'] = date("Y/m/d 08:00:00", strtotime($project['start_date']));
         $project['end_date'] = date("Y/m/d 17:00:00", strtotime($project['end_date']));
-        
+
         $projectData = Project::create($project);
         $project['user_id'] = $project['manager_id'];
 
-        foreach($project['user_id'] as $user_id) {
+        foreach ($project['user_id'] as $user_id) {
             $projectMember = [
                 'user_id' => $user_id,
                 'project_id' => $projectData['id']
@@ -43,18 +46,19 @@ class ProjectController extends Controller
             ProjectMember::insert($projectMember);
         }
 
-        return redirect(route('project-index'))->with('status', 'Project Created!');
+        return redirect(route('projects.index'))->with('status', 'Project Created!');
     }
 
-    public function edit(Project $project) {
+    public function edit(Project $project)
+    {
         $projectMembers = ProjectMember::select('user_id')->where('project_id', $project['id'])->get()->toArray();
-        $projectMembersID = array_map(function($member) {
+        $projectMembersID = array_map(function ($member) {
             return $member['user_id'];
         }, $projectMembers);
 
         $managers = UserService::getUserByRole([2]);
-        $members = UserService::getUserByRole([2,3,4]);
-        return view('project.add',[
+        $members = UserService::getUserByRole([2, 3, 4]);
+        return view('projects.add', [
             'managers' => $managers,
             'project' => $project,
             'projectMembersID' => $projectMembersID,
@@ -62,7 +66,8 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function update(Project $project, UpdateProjectRequest $request) {
+    public function update(Project $project, UpdateProjectRequest $request)
+    {
         // update project
         $project['name'] = $request['name'];
         $project['description'] = $request['description'];
@@ -76,7 +81,7 @@ class ProjectController extends Controller
 
         // update member
         if (!empty($request['user_id'])) {
-            foreach($request['user_id'] as $user_id) {
+            foreach ($request['user_id'] as $user_id) {
                 $projectMember = [
                     'user_id' => $user_id,
                     'project_id' => $project['id']
@@ -85,14 +90,24 @@ class ProjectController extends Controller
             }
         }
 
-        return redirect(route('project-index'))->with('status', 'Project Updated!');
+        return redirect(route('projects.index'))->with('status', 'Project Updated!');
     }
 
-    public function destroy(Project $project) {
+    public function destroy(Project $project)
+    {
         $project['deleted_at'] = date("Y/m/d H:i:s");
         $project->save();
-
         ProjectMember::where('project_id', $project['id'])->delete();
-        return redirect(route('project-index'))->with('status', 'Project Deleted!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Project $project)
+    {
+
     }
 }

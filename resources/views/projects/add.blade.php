@@ -28,8 +28,9 @@
           @endforeach
       </ul>
   @endif -->
-    <form action="{{ isset($project) ? route('project-update', $project['id']) : route('project-store') }}" method="post">
+    <form action="{{ isset($project) ? route('projects.update', $project['id']) : route('projects.store') }}" method="post">
       @csrf
+      @if (!empty($project)) @method('PUT') @endif
       <div class="row">
         <div class="col-md-6">
           <div class="card card-primary">
