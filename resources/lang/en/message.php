@@ -31,6 +31,8 @@ return [
         'required' => 'Vui lòng nhập vấn đề',
         'max' => 'Độ dài không vượt quá 255',
         'min' => 'Độ dài không nhỏ hơn 5',
+        'security' => 'Quyền công khai ',
+        'public' => 'Công khai',
         'private' => 'Riêng tư'
     ]
 ];

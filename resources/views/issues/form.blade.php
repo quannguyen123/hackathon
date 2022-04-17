@@ -59,12 +59,12 @@
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="form-group">
-                                <label class="form-control-label">{{ __('Priority')}}</label>
-                                <select class="form-control form-control-light select2" name="priority" id="task-priority" required>
-                                    <option value="Low">{{ __('Low')}}</option>
-                                    <option value="Medium">{{ __('Medium')}}</option>
-                                    <option value="High">{{ __('High')}}</option>
+                                <label class="form-control-label">{{ __('message.issue.security')}}</label>
+                                <select class="form-control form-control-light select2" name="private" id="task-priority" required>
+                                    <option value="1">{{ __('message.issue.private')}}</option>
+                                    <option value="0">{{ __('message.issue.public')}}</option>
                                 </select>
                             </div>    
                             <div class="form-group">
