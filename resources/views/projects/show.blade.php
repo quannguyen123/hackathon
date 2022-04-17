@@ -31,7 +31,7 @@
               <div class="card-body box-profile">
 
 
-                <h3 class="profile-username text-center">{{ $project['name'] }}</h3>
+                <h3 class="profile-username text-center">{{ $project->name }}</h3>
 
                 <p class="text-muted text-center">Software Engineer</p>
 
@@ -39,18 +39,18 @@
                   <li class="list-group-item">
                   <strong><i class="fas fa-book mr-1"></i> Info Project</strong>
                       <p class="text-muted">
-                      {{ $project['description'] }}
+                      {{ $project->description }}
                       </p>
                       <!-- <hr> -->
                   </li>
                   <li class="list-group-item">
-                    <b>Member</b> <a class="float-right">543</a>
+                    <b>Member</b> <a class="float-right">{{count($project->users)}}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Start date</b> <a class="float-right">543</a>
+                    <b>Start date</b> <a class="float-right">{{$project->start_date}}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>End date</b> <a class="float-right">13,287</a>
+                    <b>End date</b> <a class="float-right">{{$project->end_date}}</a>
                   </li>
                 </ul>
               </div>
@@ -73,37 +73,37 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
-                  @foreach ($project['guides'] as $guide)
+                  @foreach ($project->guides as $guide)
+                  @php 
+                  $guideMember = $guideMembers->where('pivot.guide_id',$guide->id)->first();
+                  @endphp 
                     <!-- Post -->
                     <div class="post">
                       <div class="user-block">
-                        <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> -->
                         <!-- <span class="username"> -->
-                          <a href="#"><b>{{ $guide['name'] }}</b></a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                          <a><b>{{ $guide->name }}</b></a>
                         <!-- </span> -->
-                        <p class="">Shared publicly - {{ $guide['created_at'] }}</p>
+                        <p class="">Shared publicly - {{ $guide->created_at}}</p>
                       </div>
                       <!-- /.user-block -->
                       <p>
-                      {{ $guide['description'] }}
+                      {{ $guide->description }}
                       </p>
 
                       <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                          </a>
-                        </span>
+                        <div class="form-group clearfix margin-bottom-10 cms-action">
+                            <div class="icheck-primary d-inline">
+                                <input class="quick-update" data-type="status" type="checkbox" data-id="{{ $guide->id }}" data-project-id="{{ $project->id }}" id="status_{{ $guide->id }}" @if ($guideMember && $guideMember->pivot->status) checked @endif>
+                                <label for="status_{{ $guide->id }}">{{ __('status') }}</label>
+                            </div>
+                        </div>
                       </p>
 
                       <form class="form-horizontal">
                         <div class="input-group input-group-sm mb-0">
-                          <input class="form-control form-control-sm" placeholder="Response">
+                          <input class="form-control form-control-sm" placeholder="Response" value="{{ ($guideMember)? $guideMember->pivot->description:'' }}" id="description_{{ $guide->id }}">
                           <div class="input-group-append">
-                            <button type="submit" class="btn btn-danger">Send</button>
+                            <button type="button" class="btn btn-danger quick-submit" data-id="{{ $guide->id }}" data-project-id="{{ $project->id }}" data-type="description" >Send</button>
                           </div>
                         </div>
                       </form>
@@ -130,3 +130,77 @@
 </div>
 <!-- /.content-wrapper -->
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.quick-update').change(function() {
+                var type = $(this).data('type');
+                var guide_id = $(this).data('id');
+                var project_id = $(this).data('project-id');
+
+                if (type == 'status') {
+                    var value = $(this).is(':checked') ? 1 : 0;
+                } else {
+                    var value = $(this).val();
+                }
+                $.ajax({
+                    url: "{{ route('projects.quick_update') }}",
+                    type: "POST",
+                    data: ({
+                        type: type,
+                        value: value,
+                        guide_id: guide_id,
+                        project_id: project_id,
+                    }),
+                    success: function(data) {
+                        if (data.status == 1) {
+                            Toast.fire({
+                                type: 'success',
+                                title: '{{ __('Update data successfully.') }}'
+                            });
+                        } else {
+                            Toast.fire({
+                                type: 'error',
+                                title: '{{ __('Update error data.') }}'
+                            });
+                        }
+                        removeOverlay();
+                    }
+                });
+            });
+
+            $('.quick-submit').click(function() {
+                var type = $(this).data('type');
+                var guide_id = $(this).data('id');
+                var project_id = $(this).data('project-id');
+                var value = $('#description_'+guide_id).val();
+                $.ajax({
+                    url: "{{ route('projects.quick_update') }}",
+                    type: "POST",
+                    data: ({
+                        type: type,
+                        value: value,
+                        guide_id: guide_id,
+                        project_id: project_id,
+                    }),
+                    success: function(data) {
+                        if (data.status == 1) {
+                            Toast.fire({
+                                type: 'success',
+                                title: '{{ __('Update data successfully.') }}'
+                            });
+                        } else {
+                            Toast.fire({
+                                type: 'error',
+                                title: '{{ __('Update error data.') }}'
+                            });
+                        }
+                        removeOverlay();
+                    }
+                });
+            });
+        });
+    </script>
+
+@endpush

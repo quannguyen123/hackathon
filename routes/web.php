@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/users', UserController::class)->except(['show']);
     /** Project */
     Route::resource('/projects', ProjectController::class);
+    Route::post('projects/quick_update', [ProjectController::class,'quickUpdate'])->name('projects.quick_update');
     Route::prefix('guide')->group(function() {
         Route::get('list', [GuideController::class, 'index'])->name('guides.index');
         Route::get('create', [GuideController::class, 'create'])->name('guides.create');
