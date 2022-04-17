@@ -8,6 +8,8 @@ use App\Http\Requests\AddProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Models\ProjectMember;
+use Illuminate\Http\JsonResponse;
+use DB;
 
 class ProjectController extends Controller
 {
@@ -109,5 +111,28 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         return view('projects.show', compact('project'));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function quickUpdate(Request $request): JsonResponse
+    {
+        $user = \Auth::user();
+        $type = $request->input('type');
+        $value = $request->input('value');
+        $guideId = $request->input('guide_id');
+        $projectId = $request->input('project_id');
+        $userId = $user->id;
+        $result = DB::table('guide_member')->where('guide_id', $guideId)->where('project_id', $projectId)->where('user_id', $userId)->first();
+        $result->setAppends([]);
+        $result->{$type} = $value;
+        if ($result->save()) {
+            return response()->json(['status' => 1]);
+        }
+        return response()->json(['status' => 0]);
     }
 }

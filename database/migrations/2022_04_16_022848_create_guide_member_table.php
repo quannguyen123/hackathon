@@ -18,7 +18,7 @@ class CreateGuideMemberTable extends Migration
             $table->integer('guide_id');
             $table->integer('project_id');
             $table->integer('user_id');
-            $table->tinyInteger('status');
+            $table->boolean('status')->default(false);
             $table->longText('description')->nullable();
             $table->timestamps();
         });
