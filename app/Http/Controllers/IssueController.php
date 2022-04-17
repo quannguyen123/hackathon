@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
+use App\Http\Requests\IssueRequest;
 use App\Models\Issue;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class IssueController extends Controller
 {
@@ -18,16 +16,22 @@ class IssueController extends Controller
 
     public function create()
     {
+        $members = collect([]);
         $user = \Auth::user();
         $projects = $user->projects()->get();
-        
-        return view('issues.create', compact('projects'));
+        foreach ($projects as $project) {
+            if ($project->manager_id === $user->id) {
+                $users = $project->users()->get();
+                $members = $members->merge($users);
+            }
+        }
+        return view('issues.form', compact('projects','members'));
     }
 
-    public function store(Request $request)
+    public function store(IssueRequest $request)
     {
         $data = [
-            'name'   => $request->title,
+            'name' => $request->name,
             'description' => $request->description,
             'project_id'  => $request->project_id,
             'private' => $request->private,
@@ -42,13 +46,13 @@ class IssueController extends Controller
     {
         $issue = Issue::find($id);
         
-        return view('issues.edit', compact('issue'));
+        return view('issues.form', compact('issue'));
     }
 
-    public function update(Request $request, $id)
+    public function update(IssueRequest $request, $id)
     {
         $data = [
-            'name'   => $request->title,
+            'name'   => $request->name,
             'description' => $request->description,
             'project_id'  => $request->project_id,
             'private' => $request->private,
@@ -60,6 +64,6 @@ class IssueController extends Controller
 
     public function delete($id)
     {
-
+        Issue::find($id)->delete();
     }
 }
