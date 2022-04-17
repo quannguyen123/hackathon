@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Project extends Model
 {
@@ -42,5 +43,15 @@ class Project extends Model
     public function guides(): HasMany
     {
         return $this->hasMany(Guide::class)->orderBy('sort_no','ASC');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function guideMember()
+    {
+        $user = \Auth::user();
+        $userId = ($user->id) ? $user->id : 0;
+        return $this->belongsToMany(Guide::class, 'guide_member', 'project_id', 'guide_id')->withPivot(['status','description'])->where('user_id', $userId);
     }
 }
