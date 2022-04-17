@@ -30,9 +30,8 @@ return [
         'security' => 'Quyền công khai ',
         'public' => 'Công khai',
         'private' => 'Riêng tư'
-    ]
-        'list' => 'Danh sách',
     ],
+    'list' => 'Danh sách',
     'role' => 'Vai trò',
     'create_at' => 'Ngày tạo',
     'user' => [
