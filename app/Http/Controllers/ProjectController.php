@@ -13,7 +13,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::with('user')->paginate(2);
+        $projects = Project::with('users')->paginate(2);
         return view('projects.list', [
             'projects' => $projects
         ]);
@@ -106,8 +106,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $project = $project->with('guides')->first();
-
+        $project = $project->with('guides')->with('users')->first();
         return view('projects.show', [
             'project' => $project
         ]);

@@ -44,13 +44,13 @@
                       <!-- <hr> -->
                   </li>
                   <li class="list-group-item">
-                    <b>Member</b> <a class="float-right">543</a>
+                    <b>Member</b> <a class="float-right">{{ count($project['users']) }}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Start date</b> <a class="float-right">543</a>
+                    <b>Start date</b> <a class="float-right"><?php echo(date("Y-m-d", strtotime($project['created_at']))); ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>End date</b> <a class="float-right">13,287</a>
+                    <b>End date</b> <a class="float-right"><?php echo(date("Y-m-d", strtotime($project['created_at']))); ?></a>
                   </li>
                 </ul>
               </div>

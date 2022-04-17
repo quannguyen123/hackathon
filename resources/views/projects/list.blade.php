@@ -76,7 +76,7 @@
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <!-- <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png"> -->
-                                    @foreach($project['user'] as $user)
+                                    @foreach($project['users'] as $user)
                                     <a href="#">
                                         <span class="badge badge-success">{{ $user['name'] }}</span>
                                     </a>
