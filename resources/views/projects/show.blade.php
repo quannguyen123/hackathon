@@ -75,6 +75,7 @@
                   @foreach ($project->guides as $guide)
                   @php 
                   $guideMember = $guideMembers->where('pivot.guide_id',$guide->id)->first();
+                  $status = ($guideMember && $guideMember->pivot->status) ? $guideMember->pivot->status :0;
                   @endphp 
                     <!-- Post -->
                     <div class="post">
@@ -92,13 +93,14 @@
                       <p>
                         <div class="form-group clearfix margin-bottom-10 cms-action">
                             <div class="icheck-primary d-inline">
-                                <input class="quick-update" data-type="status" type="checkbox" data-id="{{ $guide->id }}" data-project-id="{{ $project->id }}" id="status_{{ $guide->id }}" @if ($guideMember && $guideMember->pivot->status) checked @endif>
+                                <input class="quick-update" data-type="status" type="checkbox" data-id="{{ $guide->id }}" data-project-id="{{ $project->id }}" id="status_{{ $guide->id }}" @if ($status) checked disabled @endif>
                                 <label for="status_{{ $guide->id }}">{{ __('Trạng thái') }}</label>
                             </div>
                         </div>
                       </p>
-
-                      <div class="form-horizontal">
+                      
+                      @if(!$status)
+                      <div class="form-horizontal" id="show_description_{{ $guide->id }}">
                         <div class="input-group input-group-sm mb-0">
                           <input class="form-control form-control-sm" placeholder="Lý do không thực hiện được" value="{{ ($guideMember)? $guideMember->pivot->description:'' }}" id="description_{{ $guide->id }}">
                           <div class="input-group-append">
@@ -106,6 +108,7 @@
                           </div>
                         </div>
                       </div>
+                      @endif
                     </div>
                     <!-- /.post -->
                   @endforeach
@@ -134,6 +137,7 @@
     <script>
         $(document).ready(function() {
             $('.quick-update').change(function() {
+                var thisMain  = $(this);
                 var type = $(this).data('type');
                 var guide_id = $(this).data('id');
                 var project_id = $(this).data('project-id');
@@ -158,6 +162,10 @@
                                 type: 'success',
                                 title: '{{ __('Update data successfully.') }}'
                             });
+                            // update
+                            $('#show_description_'+guide_id).remove();
+                            thisMain.attr('disabled', 'disabled');
+                            
                         } else {
                             Toast.fire({
                                 type: 'error',
