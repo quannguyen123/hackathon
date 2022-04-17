@@ -65,10 +65,9 @@
               <div class="card-header p-2">
                 <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">List Guide</h3>
+                  <h3 class="card-title">Hướng dẫn các bước thực hiện dự án: {{$project->name}}</h3>
                 </div>
               </div>
-
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
@@ -83,25 +82,25 @@
                         <!-- <span class="username"> -->
                           <a><b>{{ $guide->name }}</b></a>
                         <!-- </span> -->
-                        <p class="">Shared publicly - {{ $guide->created_at}}</p>
+                        <p class="">Ngày tạo - {{ $guide->created_at}}</p>
                       </div>
                       <!-- /.user-block -->
                       <p>
-                      {{ $guide->description }}
+                      {!! $guide->description !!}
                       </p>
 
                       <p>
                         <div class="form-group clearfix margin-bottom-10 cms-action">
                             <div class="icheck-primary d-inline">
                                 <input class="quick-update" data-type="status" type="checkbox" data-id="{{ $guide->id }}" data-project-id="{{ $project->id }}" id="status_{{ $guide->id }}" @if ($guideMember && $guideMember->pivot->status) checked @endif>
-                                <label for="status_{{ $guide->id }}">{{ __('status') }}</label>
+                                <label for="status_{{ $guide->id }}">{{ __('Trạng thái') }}</label>
                             </div>
                         </div>
                       </p>
 
                       <form class="form-horizontal">
                         <div class="input-group input-group-sm mb-0">
-                          <input class="form-control form-control-sm" placeholder="Response" value="{{ ($guideMember)? $guideMember->pivot->description:'' }}" id="description_{{ $guide->id }}">
+                          <input class="form-control form-control-sm" placeholder="Lý do không thực hiện được" value="{{ ($guideMember)? $guideMember->pivot->description:'' }}" id="description_{{ $guide->id }}">
                           <div class="input-group-append">
                             <button type="button" class="btn btn-danger quick-submit" data-id="{{ $guide->id }}" data-project-id="{{ $project->id }}" data-type="description" >Send</button>
                           </div>
