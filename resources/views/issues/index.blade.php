@@ -24,6 +24,7 @@
         <div class="card card-solid">
             <div class="card-body pb-0">
                 <div class="row">
+                    <div class="col-12">
                     @foreach($issues as $issue)             
                     <div class="post">
                         <div class="issue-block">
@@ -34,12 +35,13 @@
                         </div>
                         <p>{{ $issue->description }}</p>
                         <p>
-                            <a href="{{ route('issues.edit', $issue->id) }}" class="btn btn-sm btn-primary">
-                                <i class="fas fa-user"></i> View Profile
+                            <a href="{{ route('issues.edit', $issue->id) }}" class="btn btn-tool">
+                                <i class="fas fa-pen"></i>
                             </a>
                         </p>
                     </div>
                     @endforeach
+                    </div>
                 </div>
             </div>
         </div>
