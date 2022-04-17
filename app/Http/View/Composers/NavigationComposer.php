@@ -39,7 +39,7 @@ class NavigationComposer
             [
                 'name' => __('Projects'),
                 'link' => '#',
-                'icon' => 'fa-filter',
+                'icon' => 'nav-icon fas fa-chart-pie',
                 'children' => [
                     [
                         'name' => __('List'),

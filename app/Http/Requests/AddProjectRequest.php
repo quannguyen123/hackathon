@@ -25,7 +25,6 @@ class AddProjectRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:projects',
-            'description' => 'required',
             'manager_id' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',

@@ -21,6 +21,13 @@
 
   <!-- Main content -->
   <section class="content">
+  <!-- @if ($errors->any())
+      <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+      </ul>
+  @endif -->
     <form action="{{ isset($project) ? route('project-update', $project['id']) : route('project-store') }}" method="post">
       @csrf
       <div class="row">

@@ -74,12 +74,14 @@ class ProjectController extends Controller
         ProjectMember::where('project_id', $project['id'])->delete();
 
         // update member
-        foreach($request['user_id'] as $user_id) {
-            $projectMember = [
-                'user_id' => $user_id,
-                'project_id' => $project['id']
-            ];
-            ProjectMember::insert($projectMember);
+        if (!empty($request['user_id'])) {
+            foreach($request['user_id'] as $user_id) {
+                $projectMember = [
+                    'user_id' => $user_id,
+                    'project_id' => $project['id']
+                ];
+                ProjectMember::insert($projectMember);
+            }
         }
 
         return redirect(route('project-index'));
