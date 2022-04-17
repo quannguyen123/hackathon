@@ -18,10 +18,7 @@ class ProjectSeeder extends Seeder
             'name'              => 'BikeBros',
             'manager_id'           => 3,
             'shared'          => 0,
-            'description'       => 'Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-            quora plaxo ideeli hulu weebly balihoo..',
+            'description'       => 'Giải pháp phần mềm quản lý gara ô tô đơn giản, dễ sử dụng, tùy biến dễ dàng theo yêu cầu của gara của chúng tôi tại....',
             'start_date'      => '2022-02-01 00:00:00',
             'end_date'        => '2022-12-01 00:00:00',
         ]);
