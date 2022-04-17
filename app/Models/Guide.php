@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends Model
+class Guide extends Model
 {
     use HasFactory, SoftDeletes;
     
-    protected $table = 'issues';
+    protected $table = 'guides';
 
     /**
      * The attributes that are mass assignable.

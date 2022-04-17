@@ -19,6 +19,7 @@ class CreateGuidesTable extends Migration
             $table->string('filename', 1024)->nullable();
             $table->longText('description')->nullable();
             $table->integer('project_id')->unsigned();
+            $table->integer('sort_no')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
