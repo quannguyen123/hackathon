@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Dashboard</h1>
+            <h1>{{ empty($issue) ? __('message.issue.create') : __('message.issue.edit') }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -23,28 +23,21 @@
     <section class="content">
         <form action="{{ route('issues.store') }}" method="post">
             @csrf
+            @if (!empty($issue)) @method('PUT') @endif
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">General</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                             </div>
-                        </div>
                         <div class="card-body">
                             <div class="form-group ">
                                 <label for="name">
-                                    {{ __('message.title') }}<span class="text-danger">*</span>
+                                    {{ __('message.issue.title') }}<span class="text-danger">*</span>
                                 </label>
                                 <input 
                                     type="text" 
                                     id="email" 
                                     class="form-control @error('title') is-invalid @enderror"
-                                    name="title" 
-                                    value="{{ old('email', isset($issue) ? $issue->title : '') }}">
+                                    name="name" 
+                                    value="{{ old('name', isset($issue) ? $issue->name : '') }}">
                                 @error('title')
                                 <span class="help-block m-b-none text-danger">{{ $message }}</span>
                                 @enderror
@@ -62,17 +55,24 @@
                                 <label for="project">{{ __('message.project') }}</label>
                                 <select id="project" class="form-control custom-select" name="project_id">
                                     @foreach($projects as $project)
-                                        <option value="{{$project->id}}">{{$project->name}}</option>
+                                        <option value="{{$project->id}}">{{ $project->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                                
+                            <div class="form-group">
+                                <label class="form-control-label">{{ __('Priority')}}</label>
+                                <select class="form-control form-control-light select2" name="priority" id="task-priority" required>
+                                    <option value="Low">{{ __('Low')}}</option>
+                                    <option value="Medium">{{ __('Medium')}}</option>
+                                    <option value="High">{{ __('High')}}</option>
+                                </select>
+                            </div>    
+                            <div class="form-group">
+                                <a href="#" class="btn btn-secondary">Cancel</a>
+                                <input type="submit" value="{{ __('message.project') }}" class="btn btn-success float-right">
+                            </div>    
                         </div>
                     </div>
-                </div>
-                <div class="col-12">
-                    <a href="#" class="btn btn-secondary">Cancel</a>
-                    <input type="submit" value="Create new Project" class="btn btn-success float-right">
                 </div>
             </div>
         </form>

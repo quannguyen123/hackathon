@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     /** Dashboard */
     Route::get('/', [ProfileController::class, 'dashboard'])->name('users.dashboard');
     /** Issues */
-    Route::resource('/issues', IssueController::class)->except(['show']) ;
+    Route::resource('/issues', IssueController::class)->except(['show']);
     /** Users */
     Route::resource('/users', UserController::class)->except(['show']);
     /** Project */
