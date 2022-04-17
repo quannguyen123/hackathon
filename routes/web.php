@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/users', UserController::class)->except(['show'])->middleware(['role:1']);
     /** Project */
     // Route::resource('/projects', ProjectController::class)->middleware(['role:2|3|4']);
-    Route::get('/projects/{project}', [ProjectController::class,'show'])->name('projects.show');
+    // Route::get('/projects/{project}', [ProjectController::class,'show'])->name('projects.show');
     Route::post('projects/quick_update', [ProjectController::class,'quickUpdate'])->name('projects.quick_update');
     
     Route::prefix('projects')->group(function() {
