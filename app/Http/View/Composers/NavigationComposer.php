@@ -19,7 +19,7 @@ class NavigationComposer
             [
                 'name' => __('Users'),
                 'link' => '#',
-                'icon' => 'fa-users',
+                'icon' => 'fa-user',
                 'children' => [
                     [
                         'name' => __('List'),
@@ -52,7 +52,7 @@ class NavigationComposer
                         'link' => route('project-add'),
                         'permission' => '',
                         'include' => [
-                            'users.edit',
+                            'project-edit',
                         ],
                     ],
                 
@@ -62,7 +62,7 @@ class NavigationComposer
             [
                 'name' => __('Issues'),
                 'link' => '#',
-                'icon' => 'fa-filter',
+                'icon' => 'fa-bug',
                 'children' => [
                     [
                         'name' => __('List'),
@@ -76,7 +76,7 @@ class NavigationComposer
                         'link' => route('issues.create'),
                         'permission' => '',
                         'include' => [
-                            'users.edit',
+                            'issues.edit',
                         ],
                     ],
                 
