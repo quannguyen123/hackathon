@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::prefix('projects')->group(function() {
         Route::get('list', [ProjectController::class, 'index'])->middleware(['role:1|2'])->name('projects.index');
-        Route::get('show', [ProjectController::class, 'show'])->middleware(['role:1|2|3|4'])->name('projects.show');
+        Route::get('show/{project}', [ProjectController::class, 'show'])->middleware(['role:1|2|3|4'])->name('projects.show');
 
         // admin có quyền tạo
         Route::get('create', [ProjectController::class, 'create'])->middleware(['role:1'])->name('projects.create');

@@ -45,7 +45,7 @@ class NavigationComposer
                     [
                         'name' => __('List'),
                         'link' => route('projects.index'),
-                        'permission' => [User::SUPER_ADMIN],
+                        'permission' => [User::SUPER_ADMIN,User::PROJECT_MANAGER],
                         'include' => [],
                     ],
                     [
