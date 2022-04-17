@@ -97,9 +97,7 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
-        $project['deleted_at'] = date("Y/m/d H:i:s");
-        $project->save();
-        ProjectMember::where('project_id', $project['id'])->delete();
+        $project->delete();
     }
 
     /**

@@ -55,7 +55,7 @@ class NavigationComposer
                             'projects.edit',
                         ],
                     ],
-                
+
                 ],
             ],
 
@@ -79,11 +79,35 @@ class NavigationComposer
                             'issues.edit',
                         ],
                     ],
-                
+
                 ],
             ],
 
-            
+            [
+                'name' => __('Guides'),
+                'link' => '#',
+                'icon' => 'fa-solid fa-briefcase',
+                'children' => [
+                    [
+                        'name' => __('List'),
+                        'link' => route('guides.index'),
+                        'permission' => '',
+                        'include' => [],
+                    ],
+
+                    [
+                        'name' => __('Create'),
+                        'link' => route('guides.create'),
+                        'permission' => '',
+                        'include' => [
+                            'guides.edit',
+                        ],
+                    ],
+
+                ],
+            ],
+
+
         ];
         $view->with(compact('navigations'));
     }
