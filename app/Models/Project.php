@@ -30,7 +30,7 @@ class Project extends Model
         return $this->belongsTo(\App\Models\User::class, 'manager_id', 'id');
     }
     
-    public function user()
+    public function users()
     {
         return $this->belongsToMany(User::class, 'project_member');
     }
