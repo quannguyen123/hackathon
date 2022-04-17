@@ -7,6 +7,7 @@ use App\Service\UserService;
 use App\Http\Requests\AddProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\GuideMember;
 use App\Models\ProjectMember;
 use Illuminate\Http\JsonResponse;
 use DB;
@@ -114,9 +115,8 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $project = $project->with('guides')->with('users')->first();
-        return view('projects.show', [
-            'project' => $project
-        ]);
+        $guideMembers = $project->guideMember;
+        return view('projects.show', compact('project', 'guideMembers'));
     }
 
     /**
@@ -133,12 +133,22 @@ class ProjectController extends Controller
         $guideId = $request->input('guide_id');
         $projectId = $request->input('project_id');
         $userId = $user->id;
-        $result = DB::table('guide_member')->where('guide_id', $guideId)->where('project_id', $projectId)->where('user_id', $userId)->first();
-        $result->setAppends([]);
-        $result->{$type} = $value;
-        if ($result->save()) {
+        $result = GuideMember::where('guide_id', $guideId)->where('project_id', $projectId)->where('user_id', $userId)->first();
+        if ($result) {
+            $result->{$type} = $value;
+            if ($result->save()) {
+                return response()->json(['status' => 1]);
+            }
+        } else {
+            GuideMember::create([
+                'guide_id' => $guideId,
+                'project_id' => $projectId,
+                'user_id' => $userId,
+                $type => $value
+            ]);
             return response()->json(['status' => 1]);
         }
+
         return response()->json(['status' => 0]);
     }
 }
